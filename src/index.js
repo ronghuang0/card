@@ -1,3 +1,12 @@
-import App from './components/App';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-document.body.appendChild(App);
+const Root = () => (
+  <div>
+    hi rong
+  </div>
+);
+
+
+const el = document.getElementById('root');
+ReactDOM.render(<Root />, el);
