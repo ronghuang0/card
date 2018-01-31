@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/App';
 
 const Root = () => (
-  <div>
-    hi rong
-  </div>
+  <App />
 );
 
 
