@@ -4,7 +4,6 @@
 export const makeElement = (type, props, children) => {
   const el = document.createElement(type);
   Object.keys(props).forEach((prop) => {
-    debugger;
     if (prop in el) { // making sure it is a valid DOM attribute
       el[prop] = props[prop];
     }

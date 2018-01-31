@@ -1,3 +1,3 @@
-import Rock from './components/Rock';
+import App from './components/App';
 
-document.body.appendChild(Rock);
+document.body.appendChild(App);

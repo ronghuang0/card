@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-airbnb-base",
+  "extends": "airbnb",
   "parser": "babel-eslint",
   "env": {
     "browser": true,
@@ -7,6 +7,14 @@
     "es6": true,
     "mocha": true
   },
-  "rules":{
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "to", "hrefLeft", "hrefRight" ],
+        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/no-unused-prop-types": [0]
   }
 }
