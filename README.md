@@ -1,2 +1,2 @@
-# rps
+# RPS
 Rock Paper Scissors
