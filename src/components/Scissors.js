@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Scissors = () => (
-  <div>
+const Scissors = ({ onClick }) => (
+  <div onClick={onClick}>
     Scissors
   </div>
 );

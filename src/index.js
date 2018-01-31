@@ -6,6 +6,5 @@ const Root = () => (
   <App />
 );
 
-
 const el = document.getElementById('root');
 ReactDOM.render(<Root />, el);

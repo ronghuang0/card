@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Paper = () => (
-  <div>
+const Paper = ({ onClick }) => (
+  <div onClick={onClick}>
     Paper
   </div>
 );

@@ -15,6 +15,7 @@
         "aspects": [ "noHref", "invalidHref", "preferButton" ]
     }],
     "jsx-quotes": ["error", "prefer-single"],
-    "react/no-unused-prop-types": [0]
+    "react/no-unused-prop-types": [0],
+    "react/prop-types": [0]
   }
 }
