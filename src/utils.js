@@ -4,13 +4,18 @@
 export const makeElement = (type, props, children) => {
   const el = document.createElement(type);
   Object.keys(props).forEach((prop) => {
+    debugger;
     if (prop in el) { // making sure it is a valid DOM attribute
       el[prop] = props[prop];
     }
   });
   children.forEach((child) => {
     // do we need type checking?
-    el.appendChild(child);
+    if (typeof child === 'string' || typeof child === 'number') {
+      el.appendChild(document.createTextNode(child));
+    } else {
+      el.appendChild(child);
+    }
   });
   return el;
 };

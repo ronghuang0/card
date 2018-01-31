@@ -1,3 +1,3 @@
-import { makeElement } from './utils';
+import Rock from './components/Rock';
 
-document.body.appendChild(makeElement('div', {}, 'hi rong'));
+document.body.appendChild(Rock);
