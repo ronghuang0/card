@@ -7,6 +7,7 @@ import Paper from './Paper';
 import Scissors from './Scissors';
 import { simulateComputer, compare } from '../utils';
 import { ROCK, PAPER, SCISSORS } from '../constants';
+import style from './App.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class App extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className={style.test}>
         <PlayerCounter wins={playerWins} />
         <ComputerCounter wins={computerWins} />
         <CurrentResult
