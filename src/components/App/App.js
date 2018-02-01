@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Counter from '../Counter/Counter';
 import Battlefield from '../Battlefield/Battlefield';
-import Weapon from '../Weapon/Weapon';
+import WeaponSelect from '../WeaponSelect/WeaponSelect';
 import { simulateComputer, compare } from '../../utils';
-import { ROCK, PAPER, SCISSORS } from '../../constants';
 import style from './App.css';
 
 export default class App extends Component {
@@ -47,11 +46,7 @@ export default class App extends Component {
           playerSelection={playerSelection}
           computerSelection={computerSelection}
         />
-        <div>
-          <Weapon name='ROCK' onClick={() => this.weaponClick(ROCK)} />
-          <Weapon name='PAPER' onClick={() => this.weaponClick(PAPER)} />
-          <Weapon name='SCISSORS' onClick={() => this.weaponClick(SCISSORS)} />
-        </div>
+        <WeaponSelect onClick={this.weaponClick} />
       </div>
     );
   }
