@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import PlayerCounter from '../Counters/PlayerCounter';
-import ComputerCounter from '../Counters/ComputerCounter';
+import Counter from '../Counter/Counter';
 import CurrentResult from '../CurrentResult/CurrentResult';
-import Rock from '../Weapons/Rock';
-import Paper from '../Weapons/Paper';
-import Scissors from '../Weapons/Scissors';
+import Weapon from '../Weapon/Weapon';
 import { simulateComputer, compare } from '../../utils';
 import { ROCK, PAPER, SCISSORS } from '../../constants';
 import style from './App.css';
@@ -41,17 +38,19 @@ export default class App extends Component {
     } = this.state;
 
     return (
-      <div className={style.test}>
-        <PlayerCounter wins={playerWins} />
-        <ComputerCounter wins={computerWins} />
+      <div>
+        <div className={style.counterContainer}>
+          <Counter name='You' wins={playerWins} />
+          <Counter name='Computer' wins={computerWins} />
+        </div>
         <CurrentResult
           playerSelection={playerSelection}
           computerSelection={computerSelection}
         />
         <div>
-          <Rock onClick={() => this.weaponClick(ROCK)} />
-          <Paper onClick={() => this.weaponClick(PAPER)} />
-          <Scissors onClick={() => this.weaponClick(SCISSORS)} />
+          <Weapon name='ROCK' onClick={() => this.weaponClick(ROCK)} />
+          <Weapon name='PAPER' onClick={() => this.weaponClick(PAPER)} />
+          <Weapon name='SCISSORS' onClick={() => this.weaponClick(SCISSORS)} />
         </div>
       </div>
     );
