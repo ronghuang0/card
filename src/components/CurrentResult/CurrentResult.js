@@ -1,6 +1,6 @@
 import React from 'react';
-import { compare } from '../utils';
-import { numToTextMap } from '../constants';
+import { compare } from '../../utils';
+import { numToTextMap } from '../../constants';
 
 const CurrentResult = ({ playerSelection, computerSelection }) => {
   const result = compare(playerSelection, computerSelection);

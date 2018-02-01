@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PlayerCounter from './PlayerCounter';
-import ComputerCounter from './ComputerCounter';
-import CurrentResult from './CurrentResult';
-import Rock from './Rock';
-import Paper from './Paper';
-import Scissors from './Scissors';
-import { simulateComputer, compare } from '../utils';
-import { ROCK, PAPER, SCISSORS } from '../constants';
+import PlayerCounter from '../Counters/PlayerCounter';
+import ComputerCounter from '../Counters/ComputerCounter';
+import CurrentResult from '../CurrentResult/CurrentResult';
+import Rock from '../Weapons/Rock';
+import Paper from '../Weapons/Paper';
+import Scissors from '../Weapons/Scissors';
+import { simulateComputer, compare } from '../../utils';
+import { ROCK, PAPER, SCISSORS } from '../../constants';
 import style from './App.css';
 
 export default class App extends Component {
