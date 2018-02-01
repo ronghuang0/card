@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Counter from '../Counter/Counter';
-import CurrentResult from '../CurrentResult/CurrentResult';
+import Battlefield from '../Battlefield/Battlefield';
 import Weapon from '../Weapon/Weapon';
 import { simulateComputer, compare } from '../../utils';
 import { ROCK, PAPER, SCISSORS } from '../../constants';
@@ -43,7 +43,7 @@ export default class App extends Component {
           <Counter name='You' wins={playerWins} />
           <Counter name='Computer' wins={computerWins} />
         </div>
-        <CurrentResult
+        <Battlefield
           playerSelection={playerSelection}
           computerSelection={computerSelection}
         />
