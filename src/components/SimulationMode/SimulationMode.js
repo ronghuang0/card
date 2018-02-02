@@ -13,17 +13,16 @@ export default class SimulationMode extends Component {
       firstSelection: undefined,
       secondSelection: undefined,
     };
-    this.reset = this.reset.bind(this);
   }
 
-  reset() {
-    this.setState({
-      firstWins: 0,
-      secondWins: 0,
-      firstSelection: undefined,
-      secondSelection: undefined,
-    });
+  componentDidMount() {
+    setTimeout(() => this.simulateGame(), 1000);
   }
+
+  componentWillUpdate() {
+    setTimeout(() => this.simulateGame(), 1000);
+  }
+
   simulateGame() {
     const firstSelection = simulateComputer();
     const secondSelection = simulateComputer();
@@ -49,12 +48,6 @@ export default class SimulationMode extends Component {
       <div>
         <div className={style.counterContainer}>
           <Counter name='Cpu 1' wins={firstWins} />
-          <div
-            className={style.reset}
-            onClick={this.reset}
-          >
-            Reset
-          </div>
           <div
             className={style.reset}
             onClick={toggleMode}
