@@ -11,9 +11,20 @@ export default class App extends Component {
     this.state = {
       playerWins: 0,
       computerWins: 0,
-      computerSelection: 0,
+      playerSelection: undefined,
+      computerSelection: undefined,
     };
     this.weaponClick = this.weaponClick.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    this.setState({
+      playerWins: 0,
+      computerWins: 0,
+      playerSelection: undefined,
+      computerSelection: undefined,
+    });
   }
 
   weaponClick(weapon) {
@@ -39,6 +50,12 @@ export default class App extends Component {
       <div>
         <div className={style.counterContainer}>
           <Counter name='You' wins={playerWins} />
+          <div
+            className={style.reset}
+            onClick={this.reset}
+          >
+            Reset
+          </div>
           <Counter name='Computer' wins={computerWins} />
         </div>
         <Battlefield
