@@ -65,7 +65,7 @@ export default class PlayerMode extends Component {
           <Counter name='Computer' wins={computerWins} />
         </div>
         <Battlefield
-          firstName='Computer1'
+          firstName='You'
           secondName='Computer'
           firstSelection={playerSelection}
           secondSelection={computerSelection}
