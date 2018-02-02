@@ -4,7 +4,6 @@ import { computeWinner } from '../../utils';
 import { numToWeaponMap, numToResultMap, numToDetailResultMap } from '../../constants';
 import style from './Battlefield.css';
 
-// This is the default battlefield for player vs computer
 const Battlefield = ({
   firstName,
   firstSelection,
