@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Weapon from '../Weapon/Weapon';
 import { ROCK, PAPER, SCISSORS } from '../../constants';
 import style from './WeaponSelect.css';
@@ -13,5 +14,9 @@ const WeaponSelect = ({ onClick }) => (
     <div> Choose Weapon </div>
   </div>
 );
+
+WeaponSelect.propTypes = {
+  onClick: PropTypes.func,
+};
 
 export default WeaponSelect;
