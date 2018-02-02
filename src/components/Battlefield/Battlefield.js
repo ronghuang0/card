@@ -10,18 +10,19 @@ const Battlefield = ({
   firstSelection,
   secondSelection,
 }) => {
+  // default values for before weapon selection
   let winner = '';
   let result = '';
   let detailedResult = '';
   let firstWeapon = 'questionmark';
   let secondWeapon = 'questionmark';
+  // once weapon selection is made
   if (firstName !== undefined &&
       firstSelection !== undefined &&
       secondSelection !== undefined) {
     winner = computeWinner(firstSelection, secondSelection);
     result = `${firstName} ${numToResultMap[winner]}`;
-    detailedResult = firstSelection !== undefined ?
-      numToDetailResultMap[firstSelection][secondSelection] : null;
+    detailedResult = numToDetailResultMap[firstSelection][secondSelection];
     firstWeapon = `${numToWeaponMap[firstSelection]}`;
     secondWeapon = `${numToWeaponMap[secondSelection]}`;
   }
