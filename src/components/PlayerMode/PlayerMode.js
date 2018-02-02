@@ -45,7 +45,7 @@ export default class PlayerMode extends Component {
       playerSelection,
       computerSelection,
     } = this.state;
-    const { toggleMode } = this.props;
+    const { onToggle } = this.props;
     return (
       <div>
         <div className={style.counterContainer}>
@@ -58,7 +58,7 @@ export default class PlayerMode extends Component {
           </div>
           <div
             className={style.reset}
-            onClick={toggleMode}
+            onClick={onToggle}
           >
             Simulation Mode
           </div>

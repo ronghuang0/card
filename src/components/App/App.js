@@ -21,8 +21,8 @@ export default class App extends Component {
   render() {
     const { gameMode } = this.state;
     return (
-      gameMode === 'player' ? <PlayerMode toggleMode={this.toggleMode} /> :
-      <SimulationMode toggleMode={this.toggleMode} />
+      gameMode === 'player' ? <PlayerMode onToggle={this.toggleMode} /> :
+      <SimulationMode onToggle={this.toggleMode} />
     );
   }
 }
