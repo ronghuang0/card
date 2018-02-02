@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly with name and selection props 1`] = `
+<div>
+  <div>
+    You Lose
+  </div>
+  <div>
+    <Weapon
+      name="rock"
+    />
+    VS
+    <Weapon
+      name="paper"
+    />
+  </div>
+  <div>
+    Paper covers Rock
+  </div>
+</div>
+`;
+
+exports[`should render correctly with no props 1`] = `
+<div>
+  <div />
+  <div>
+    <Weapon
+      name="questionmark"
+    />
+    VS
+    <Weapon
+      name="questionmark"
+    />
+  </div>
+  <div />
+</div>
+`;

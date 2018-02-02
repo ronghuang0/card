@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Weapon from '../Weapon/Weapon';
 import { computeWinner } from '../../utils';
 import { numToWeaponMap, numToResultMap, numToDetailResultMap } from '../../constants';
@@ -40,6 +41,12 @@ const Battlefield = ({
       </div>
     </div>
   );
+};
+
+Battlefield.propTypes = {
+  firstName: PropTypes.string,
+  firstSelection: PropTypes.number,
+  secondSelection: PropTypes.number,
 };
 
 export default Battlefield;
