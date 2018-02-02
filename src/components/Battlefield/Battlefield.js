@@ -1,16 +1,30 @@
 import React from 'react';
 import Weapon from '../Weapon/Weapon';
 import { compare } from '../../utils';
-import { numToTextMap } from '../../constants';
+import { numToWeaponMap, numToResultMap } from '../../constants';
 import style from './Battlefield.css';
 
-const Battlefield = ({ playerSelection, computerSelection }) => {
-  const result = compare(playerSelection, computerSelection);
+const Battlefield = ({
+  firstName,
+  secondName,
+  firstSelection,
+  secondSelection
+}) => {
+  const winner = compare(firstSelection, secondSelection);
+  const result = `${firstName} ${numToResultMap[winner]}`;
   return (
-    <div className={style.container}>
-      <Weapon name={`${numToTextMap[playerSelection]}`} />
-      VS
-      <Weapon name={`${numToTextMap[computerSelection]}`} />
+    <div className={style.bigContainer} >
+      <div>
+        { result }
+      </div>
+      <div className={style.container}>
+        <Weapon name={`${numToWeaponMap[firstSelection]}`} />
+        VS
+        <Weapon name={`${numToWeaponMap[secondSelection]}`} />
+      </div>
+      <div>
+        rock beats child
+      </div>
     </div>
   );
 };

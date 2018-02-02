@@ -16,33 +16,41 @@ export default class App extends Component {
     };
     this.weaponClick = this.weaponClick.bind(this);
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.stage === 'cycle') {
-      setTimeout(() => {
-        console.log('woley', prevState.computerSelection);
-        this.setState({ computerSelection: (prevState.computerSelection + 1) % 3 });
-      }, 100);
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextState.stage === 'midcycle' && this.state.stage === 'result') {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.stage === 'startcycle' || this.state.stage === 'midcycle') {
+  //     setTimeout(() => {
+  //       this.setState({
+  //         computerSelection: (prevState.computerSelection + 1) % 3,
+  //         stage: 'midcycle',
+  //       });
+  //     }, 300);
+  //   }
+  // }
 
   weaponClick(weapon) {
     const computerSelection = simulateComputer();
-    // 1 means first argument wins, -1 means second argument wins, 0 is tie
-    const winner = compare(weapon, computerSelection);
-    setTimeout(() => {
-      this.setState(({ playerWins, computerWins }) => ({
-        stage: 'result',
-        computerSelection,
-        playerWins: winner === 1 ? playerWins + 1 : playerWins,
-        computerWins: winner === -1 ? computerWins + 1 : computerWins,
-      }));
-    }, 3000);
-    this.setState({
+    // 1 means first player wins, -1 means second player wins, 0 is tie
+    const result = compare(weapon, computerSelection);
+    // setTimeout(() => {
+    //   this.setState(({ playerWins, computerWins }) => ({
+    //     stage: 'result',
+    //     computerSelection,
+    //     playerWins: result === 1 ? playerWins + 1 : playerWins,
+    //     computerWins: result === -1 ? computerWins + 1 : computerWins,
+    //   }));
+    // }, 3000);
+    this.setState(({ playerWins, computerWins }) => ({
       playerSelection: weapon,
-      computerSelection: 0,
-      stage: 'cycle',
-    });
+      computerSelection,
+      playerWins: result === 1 ? playerWins + 1 : playerWins,
+      computerWins: result === -1 ? computerWins + 1 : computerWins,
+    }));
   }
   render() {
     const {
@@ -59,8 +67,10 @@ export default class App extends Component {
           <Counter name='Computer' wins={computerWins} />
         </div>
         <Battlefield
-          playerSelection={playerSelection}
-          computerSelection={computerSelection}
+          firstName='You'
+          secondName='Computer'
+          firstSelection={playerSelection}
+          secondSelection={computerSelection}
         />
         <WeaponSelect onClick={this.weaponClick} />
       </div>
