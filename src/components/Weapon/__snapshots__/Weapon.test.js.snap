@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  onClick={[MockFunction]}
+>
+  <img
+    alt="rock"
+    src="/static/images/rock.png"
+  />
+</div>
+`;
