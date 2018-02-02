@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Counter from '../Counter/Counter';
 import Battlefield from '../Battlefield/Battlefield';
 import { simulateComputer, computeWinner } from '../../utils';
@@ -42,7 +43,7 @@ export default class SimulationMode extends Component {
       firstSelection,
       secondSelection,
     } = this.state;
-    const { toggleMode } = this.props;
+    const { onToggle } = this.props;
 
     return (
       <div>
@@ -50,7 +51,7 @@ export default class SimulationMode extends Component {
           <Counter name='Cpu 1' wins={firstWins} />
           <div
             className={style.reset}
-            onClick={toggleMode}
+            onClick={onToggle}
           >
             Player Mode
           </div>
@@ -66,3 +67,7 @@ export default class SimulationMode extends Component {
     );
   }
 }
+
+SimulationMode.propTypes = {
+  onToggle: PropTypes.func,
+};

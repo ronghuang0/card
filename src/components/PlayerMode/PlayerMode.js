@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Counter from '../Counter/Counter';
 import Battlefield from '../Battlefield/Battlefield';
 import WeaponSelect from '../WeaponSelect/WeaponSelect';
@@ -75,3 +76,7 @@ export default class PlayerMode extends Component {
     );
   }
 }
+
+PlayerMode.propTypes = {
+  onToggle: PropTypes.func,
+};
