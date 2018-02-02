@@ -18,3 +18,28 @@ export const numToResultMap = {
   0: 'Tie',
   1: 'Win',
 };
+
+// from player1 perspective
+export const numToVerbResultMap = {
+  '-1': 'loses to',
+  0: 'ties',
+  1: 'beats',
+};
+
+export const map = {
+  [ROCK]: {
+    [ROCK]: 'Rock meets Rock',
+    [PAPER]: 'Paper covers Rock',
+    [SCISSORS]: 'Rock blunts Scissors',
+  },
+  [PAPER]: {
+    [ROCK]: 'Paper covers Rock',
+    [PAPER]: 'Paper meets Paper',
+    [SCISSORS]: 'Scissors cut Paper',
+  },
+  [SCISSORS]: {
+    [ROCK]: 'Rock blunts Scissors',
+    [PAPER]: 'Scissors cut Paper',
+    [SCISSORS]: 'Scissors meets Scissors',
+  },
+};

@@ -8,5 +8,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+.div1{
+  width: 200px;
+  height: 20px;
+}
+
+.div2{
+  width: 200px;
+  height: 20px;
 }
