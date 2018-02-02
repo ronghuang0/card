@@ -10,6 +10,7 @@ export const simulateComputer = () => (
 // parameters: number from  0 to 2 (Rock, Paper, Scissors)
 // returns: number from -1 to 1
 // returns winner from player 1 perspective
+// eslint-disable-next-line consistent-return
 export const computeWinner = (choice1, choice2) => {
   if (choice1 === choice2) {
     return 0;

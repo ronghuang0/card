@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Weapon from '../Weapon/Weapon';
 import { computeWinner } from '../../utils';
-import { numToWeaponMap, numToResultMap, numToDetailResultMap } from '../../constants';
+import {
+  numToWeaponMap,
+  numToResultMap,
+  numToDetailResultMap,
+} from '../../constants';
 import style from './Battlefield.css';
 
 const Battlefield = ({
