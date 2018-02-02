@@ -1,10 +1,6 @@
 export const ROCK = 0;
 export const PAPER = 1;
 export const SCISSORS = 2;
-// export const WIN = 'win';
-// export const LOSS = 'loss';
-// export const TIE = 'tie';
-
 
 export const numToWeaponMap = {
   0: 'rock',
@@ -19,14 +15,7 @@ export const numToResultMap = {
   1: 'Win',
 };
 
-// from player1 perspective
-export const numToVerbResultMap = {
-  '-1': 'loses to',
-  0: 'ties',
-  1: 'beats',
-};
-
-export const map = {
+export const numToDetailResultMap = {
   [ROCK]: {
     [ROCK]: 'Rock meets Rock',
     [PAPER]: 'Paper covers Rock',

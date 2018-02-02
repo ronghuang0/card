@@ -16,7 +16,7 @@ app.use(bodyParser.text());
 app.use('/static', express.static(path.join(__dirname, '/../')));
 
 app.get('/favicon.ico', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../logo.png'));
+  res.sendFile(path.join(__dirname, '/../images/logo.png'));
 });
 
 // this sends the index.html for the initial page load

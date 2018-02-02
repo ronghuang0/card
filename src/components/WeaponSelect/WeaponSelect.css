@@ -1,6 +1,7 @@
 .weapons {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .container {

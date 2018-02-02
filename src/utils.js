@@ -7,7 +7,10 @@ export const simulateComputer = () => (
   getRandomInt(0, 2)
 );
 
-export const compare = (choice1, choice2) => {
+// parameters: number from  0 to 2 (Rock, Paper, Scissors)
+// returns: number from -1 to 1
+// returns winner from player 1 perspective
+export const computeWinner = (choice1, choice2) => {
   if (choice1 === choice2) {
     return 0;
   }
@@ -28,17 +31,5 @@ export const compare = (choice1, choice2) => {
       return -1;
     }
     return 1;
-  }
-};
-
-export const comparison = (choice1, choice2) => {
-  if (compare(choice1, choice2) === 0) {
-    return 'ties';
-  }
-  if (compare(choice1, choice2) === 1) {
-    return 'beats';
-  }
-  if (compare(choice1, choice2) === -1) {
-    return 'loses to';
   }
 };

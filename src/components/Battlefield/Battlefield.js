@@ -1,9 +1,10 @@
 import React from 'react';
 import Weapon from '../Weapon/Weapon';
-import { compare } from '../../utils';
-import { numToWeaponMap, numToResultMap, map } from '../../constants';
+import { computeWinner } from '../../utils';
+import { numToWeaponMap, numToResultMap, numToDetailResultMap } from '../../constants';
 import style from './Battlefield.css';
 
+// This is the default battlefield for player vs computer
 const Battlefield = ({
   firstName,
   firstSelection,
@@ -11,17 +12,18 @@ const Battlefield = ({
 }) => {
   let winner = '';
   let result = '';
-  let result2 = '';
-  let name1 = 'questionmark';
-  let name2 = 'questionmark';
+  let detailedResult = '';
+  let firstWeapon = 'questionmark';
+  let secondWeapon = 'questionmark';
   if (firstName !== undefined &&
-    firstSelection !== undefined &&
-    secondSelection !== undefined) {
-    winner = compare(firstSelection, secondSelection);
+      firstSelection !== undefined &&
+      secondSelection !== undefined) {
+    winner = computeWinner(firstSelection, secondSelection);
     result = `${firstName} ${numToResultMap[winner]}`;
-    result2 = firstSelection !== undefined ? map[firstSelection][secondSelection] : null;
-    name1 = `${numToWeaponMap[firstSelection]}`;
-    name2 = `${numToWeaponMap[secondSelection]}`;
+    detailedResult = firstSelection !== undefined ?
+      numToDetailResultMap[firstSelection][secondSelection] : null;
+    firstWeapon = `${numToWeaponMap[firstSelection]}`;
+    secondWeapon = `${numToWeaponMap[secondSelection]}`;
   }
   return (
     <div className={style.outerContainer} >
@@ -29,12 +31,12 @@ const Battlefield = ({
         {result}
       </div>
       <div className={style.innerContainer}>
-        <Weapon name={name1} />
+        <Weapon name={firstWeapon} />
         VS
-        <Weapon name={name2} />
+        <Weapon name={secondWeapon} />
       </div>
       <div className={style.resultDiv}>
-        {result2}
+        {detailedResult}
       </div>
     </div>
   );
