@@ -6,7 +6,6 @@ import style from './Battlefield.css';
 
 const Battlefield = ({
   firstName,
-  secondName,
   firstSelection,
   secondSelection,
 }) => {
@@ -25,16 +24,16 @@ const Battlefield = ({
     name2 = `${numToWeaponMap[secondSelection]}`;
   }
   return (
-    <div className={style.bigContainer} >
-      <div className={style.div1}>
+    <div className={style.outerContainer} >
+      <div className={style.resultDiv}>
         {result}
       </div>
-      <div className={style.container}>
+      <div className={style.innerContainer}>
         <Weapon name={name1} />
         VS
         <Weapon name={name2} />
       </div>
-      <div className={style.div2}>
+      <div className={style.resultDiv}>
         {result2}
       </div>
     </div>
