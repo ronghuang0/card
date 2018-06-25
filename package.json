@@ -8,16 +8,6 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
-    "test": "jest"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/setupTest.js",
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "transform": {
-      ".*": "<rootDir>/node_modules/jest-css-modules"
-    }
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -47,8 +37,5 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "enzyme-to-json": "^3.3.1",
-    "jest": "^22.1.4",
-    "jest-css-modules": "^1.1.0",
-    "react-test-renderer": "^16.2.0"
   }
 }
