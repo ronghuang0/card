@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App';
+// import App from './components/App/App';
+import Card from './components/Card';
 
 const Root = () => (
-  <App />
+  <Card />
 );
 
 const el = document.getElementById('root');
