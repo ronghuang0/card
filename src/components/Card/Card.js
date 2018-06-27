@@ -17,17 +17,16 @@ export default class Demo extends React.Component {
     mouseY: 0,
     isPressed: false,
     originalPosOfLastPressed: 0,
+    pageY: 0,
+    originalPageY: 0,
   };
 
   componentDidMount() {
     window.addEventListener('touchmove', this.handleTouchMove);
     window.addEventListener('touchend', this.handleTouchEnd);
-    // window.addEventListener('mousemove', this.handleMouseMove);
-    // window.addEventListener('mouseup', this.handleMouseUp);
   };
 
   handleTouchStart = (pos, pressY, e) => {
-    console.log('woley');
     const pageY = e.touches[0].pageY;
     this.setState({
       topDeltaY: pageY - pressY,
@@ -45,39 +44,17 @@ export default class Demo extends React.Component {
     if (isPressed) {
       const mouseY = pageY - topDeltaY;
       const currentRow = clamp(Math.round(mouseY / 100), 0, itemsCount - 1);
-      this.setState({mouseY: mouseY});
+      this.setState({mouseY: mouseY, pageY: pageY});
     }
   };
 
-  // handleMouseDown = (pos, pressY, {pageY}) => {
-  //   this.setState({
-  //     topDeltaY: pageY - pressY,
-  //     mouseY: pressY,
-  //     isPressed: true,
-  //     originalPosOfLastPressed: pos,
-  //     originalPageY: pageY,
-  //   });
-  // };
+  handleTouchEnd = (e) => {
+    console.log('woley', e);
+    const { mouseY, topDeltaY} = this.state;
+    // console.log('page', pageY);
+    // console.log('orig', originalPageY);
 
-  // handleMouseMove = ({pageY}) => {
-  //   const {isPressed, topDeltaY, originalPosOfLastPressed} = this.state;
-  //
-  //   if (isPressed) {
-  //     const mouseY = pageY - topDeltaY;
-  //     const currentRow = clamp(Math.round(mouseY / 100), 0, itemsCount - 1);
-  //
-  //
-  //     this.setState({mouseY: mouseY});
-  //   }
-  // };
-
-
-  handleTouchEnd = ({pageY}) => {
-    const { mouseY, topDeltaY, originalPageY} = this.state;
-    console.log('page', pageY);
-    console.log('orig', originalPageY);
-
-    this.setState({isPressed: false, topDeltaY: 0, pageY: pageY});
+    this.setState({isPressed: false, topDeltaY: 0 });
   };
 
   render() {
