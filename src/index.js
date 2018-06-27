@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Stage from './components/Stage';
+import Card from './components/Card/Card';
 
 const Root = () => (
-  <Stage />
+  <Card />
 );
 
 const el = document.getElementById('root');
