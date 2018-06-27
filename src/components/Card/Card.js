@@ -27,11 +27,12 @@ export default class Demo extends React.Component {
   };
 
   handleTouchStart = (key, pressLocation, e) => {
+    console.log('woley');
     this.handleMouseDown(key, pressLocation, e.touches[0]);
   };
 
   handleTouchMove = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     this.handleMouseMove(e.touches[0]);
   };
 
@@ -56,6 +57,7 @@ export default class Demo extends React.Component {
       this.setState({mouseY: mouseY});
     }
   };
+
 
   handleMouseUp = ({pageY}) => {
     const { mouseY, topDeltaY, originalPageY} = this.state;
