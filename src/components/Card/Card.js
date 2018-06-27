@@ -21,22 +21,14 @@ export default class Demo extends React.Component {
 
   componentDidMount() {
     window.addEventListener('touchmove', this.handleTouchMove);
-    window.addEventListener('touchend', this.handleMouseUp);
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
+    window.addEventListener('touchend', this.handleTouchEnd);
+    // window.addEventListener('mousemove', this.handleMouseMove);
+    // window.addEventListener('mouseup', this.handleMouseUp);
   };
 
-  handleTouchStart = (key, pressLocation, e) => {
+  handleTouchStart = (pos, pressY, e) => {
     console.log('woley');
-    this.handleMouseDown(key, pressLocation, e.touches[0]);
-  };
-
-  handleTouchMove = (e) => {
-    // e.preventDefault();
-    this.handleMouseMove(e.touches[0]);
-  };
-
-  handleMouseDown = (pos, pressY, {pageY}) => {
+    const pageY = e.touches[0].pageY;
     this.setState({
       topDeltaY: pageY - pressY,
       mouseY: pressY,
@@ -46,20 +38,41 @@ export default class Demo extends React.Component {
     });
   };
 
-  handleMouseMove = ({pageY}) => {
+  handleTouchMove = (e) => {
+    // e.preventDefault();
+    const pageY = e.touches[0].pageY;
     const {isPressed, topDeltaY, originalPosOfLastPressed} = this.state;
-
     if (isPressed) {
       const mouseY = pageY - topDeltaY;
       const currentRow = clamp(Math.round(mouseY / 100), 0, itemsCount - 1);
-
-
       this.setState({mouseY: mouseY});
     }
   };
 
+  // handleMouseDown = (pos, pressY, {pageY}) => {
+  //   this.setState({
+  //     topDeltaY: pageY - pressY,
+  //     mouseY: pressY,
+  //     isPressed: true,
+  //     originalPosOfLastPressed: pos,
+  //     originalPageY: pageY,
+  //   });
+  // };
 
-  handleMouseUp = ({pageY}) => {
+  // handleMouseMove = ({pageY}) => {
+  //   const {isPressed, topDeltaY, originalPosOfLastPressed} = this.state;
+  //
+  //   if (isPressed) {
+  //     const mouseY = pageY - topDeltaY;
+  //     const currentRow = clamp(Math.round(mouseY / 100), 0, itemsCount - 1);
+  //
+  //
+  //     this.setState({mouseY: mouseY});
+  //   }
+  // };
+
+
+  handleTouchEnd = ({pageY}) => {
     const { mouseY, topDeltaY, originalPageY} = this.state;
     console.log('page', pageY);
     console.log('orig', originalPageY);
@@ -109,7 +122,6 @@ export default class Demo extends React.Component {
               <Motion style={style} key={i}>
                 {({scale, shadow, y}) =>
                   <div
-                    onMouseDown={this.handleMouseDown.bind(null, i, y)}
                     onTouchStart={this.handleTouchStart.bind(null, i, y)}
                     className={cardStyle.demoItem}
                     style={{
