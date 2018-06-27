@@ -12,14 +12,11 @@ const springConfig = {stiffness: 300, damping: 50};
 const itemsCount = 2;
 
 export default class Demo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      topDeltaY: 0,
-      mouseY: 0,
-      isPressed: false,
-      originalPosOfLastPressed: 0,
-    };
+  state = {
+    topDeltaY: 0,
+    mouseY: 0,
+    isPressed: false,
+    originalPosOfLastPressed: 0,
   };
 
   componentDidMount() {
