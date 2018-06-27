@@ -19,6 +19,7 @@
   }
 
   .demoItem {
+    /* touch-action: none; */
     position: absolute;
     width: 320px;
     height: 90px;
