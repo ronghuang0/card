@@ -1,21 +1,19 @@
 /* eslint-disable */
 import React from 'react';
 import { Motion, spring } from 'react-motion';
-import range from 'lodash.range';
 import cardStyle from './Card.css';
 
 const springConfig = { stiffness: 300, damping: 50 };
-const itemsCount = 2;
+const CARD_DELTA = 100;
 
 export default class Demo extends React.Component {
   state = {
-    topDeltaY: 0,
-    mouseY: 0,
+    mouseY: CARD_DELTA,
     isPressed: false,
-    originalPosOfLastPressed: 0,
     pageY: 0,
     originalPageY: 0,
     expanded: false,
+    pos: 1,
   };
 
   componentDidMount() {
@@ -23,14 +21,14 @@ export default class Demo extends React.Component {
     window.addEventListener('touchend', this.handleTouchEnd);
   }
 
-  handleTouchStart = (pos, pressY, e) => {
+  handleTouchStart = (y, e) => {
     const { pageY } = e.touches[0];
+    const { pos } = this.state;
     this.setState({
-      topDeltaY: pageY - pressY,
-      mouseY: pressY,
+      pageY,
+      mouseY: CARD_DELTA*pos,
       isPressed: true,
-      originalPosOfLastPressed: pos,
-      originalPageY: pageY,
+      startPageY: pageY,
     });
   };
 
@@ -39,19 +37,27 @@ export default class Demo extends React.Component {
       e.preventDefault();
     }
     const { pageY } = e.touches[0];
-    const { isPressed, topDeltaY } = this.state;
+    const { isPressed, startPageY, pos } = this.state;
     if (isPressed) {
-      const mouseY = pageY - topDeltaY;
+      const mouseY = pageY-startPageY+CARD_DELTA*pos;
       this.setState({ mouseY, pageY });
+      console.log('mouseY', mouseY);
     }
   };
 
   handleTouchEnd = () => {
+    const { mouseY } = this.state;
     this.setState({ isPressed: false });
+    let pos;
+    if (mouseY <50) {
+      pos = 0;
+    } else {
+      pos = 1;
+    }
+    this.setState({ isPressed: false, pos })
   };
 
   toggleExpand = () => {
-    console.log('toggle expand');
     this.setState({ expanded: !this.state.expanded })
   }
 
@@ -59,65 +65,41 @@ export default class Demo extends React.Component {
     const {
       mouseY,
       isPressed,
-      originalPosOfLastPressed,
       originalPageY,
       pageY,
     } = this.state;
-    console.log('mouseY', mouseY);
-    console.log('pageY', pageY);
+    let y;
+    if(isPressed) {
+      y = mouseY;
+    } else {
+      if(mouseY < 50) {
+        y = spring(0, springConfig);
+      } else {
+        y = spring(CARD_DELTA, springConfig);
+      }
+    };
+    const style = { y };
+    console.log('y', y);
 
     return (
       <div className={cardStyle.demoOuter}>
         <div className={cardStyle.demo}>
-          {range(itemsCount).map((i) => {
-            let style;
-            if (i === 0) {
-              style = {
-                  scale: spring(1, springConfig),
-                  shadow: spring(1, springConfig),
-                  y: spring(i * 100, springConfig),
-                };
+          <div className={cardStyle.demoItem}>
+            {0}
+          </div>
+          <Motion style={style}>
+            {({y}) =>
+              <div
+                className={cardStyle.demoItem}
+                onTouchStart={this.handleTouchStart.bind(null, y)}
+                style={{
+                  transform: `translate3d(0, ${y}px, 0)`
+                }}
+              >
+                {1}
+              </div>
             }
-            if (i === 1) {
-              if (originalPosOfLastPressed === 1 && isPressed) {
-                style = {
-                  scale: spring(1.1, springConfig),
-                  shadow: spring(16, springConfig),
-                  y: mouseY,
-                };
-              } else {
-                if(originalPageY - pageY > 50) {
-                  style = {
-                      scale: spring(1, springConfig),
-                      shadow: spring(1, springConfig),
-                      y: spring(0, springConfig),
-                    };
-                } else {
-                  style = {
-                    scale: spring(1, springConfig),
-                    shadow: spring(1, springConfig),
-                    y: spring(i * 100, springConfig),
-                  };
-                }
-              }
-            }
-            return (
-              <Motion style={style} key={i}>
-                {({ scale, shadow, y }) =>
-                  <div
-                    onTouchStart={this.handleTouchStart.bind(null, i, y)}
-                    className={cardStyle.demoItem}
-                    style={{
-                      boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
-                      transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                      zIndex: i === originalPosOfLastPressed ? 99 : i,
-                    }}>
-                    {i + 1}
-                  </div>
-                }
-              </Motion>
-            );
-          })}
+          </Motion>
         </div>
         <div onClick={this.toggleExpand}> expand </div>
       </div>
