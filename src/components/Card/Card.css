@@ -8,9 +8,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    display: -webkit-flex;
-    -webkit-justify-content: center;
-    -webkit-align-items: center;
   }
 
   .demo {
@@ -19,7 +16,6 @@
   }
 
   .demoItem {
-    /* touch-action: none; */
     position: absolute;
     width: 320px;
     height: 90px;
@@ -34,5 +30,4 @@
     font-weight: 400;
     background-color: rgb(255, 255, 255);
     box-sizing: border-box;
-    -webkit-box-sizing: border-box;
   }
