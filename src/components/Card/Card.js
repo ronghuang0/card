@@ -4,31 +4,31 @@ import { Motion, spring } from 'react-motion';
 import cardStyle from './Card.css';
 
 const springConfig = { stiffness: 300, damping: 50 };
-const CARD_DELTA = 100;
-
+const yMin = 0;
+const yMax = 100;
+//y is downward translation
 export default class Demo extends React.Component {
   state = {
-    mouseY: CARD_DELTA,
     isPressed: false,
+    current: 0,
+    prevPageY: 0,
     pageY: 0,
-    originalPageY: 0,
     expanded: false,
-    pos: 1,
+    y: yMax,
   };
 
   componentDidMount() {
     window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+    window.addEventListener('touchstart', this.handleTouchStart, { passive: false });
     window.addEventListener('touchend', this.handleTouchEnd);
   }
 
-  handleTouchStart = (y, e) => {
+  handleTouchStart = (e) => {
     const { pageY } = e.touches[0];
-    const { pos } = this.state;
     this.setState({
-      pageY,
-      mouseY: CARD_DELTA*pos,
       isPressed: true,
-      startPageY: pageY,
+      prevPageY: pageY,
+      pageY,
     });
   };
 
@@ -37,24 +37,11 @@ export default class Demo extends React.Component {
       e.preventDefault();
     }
     const { pageY } = e.touches[0];
-    const { isPressed, startPageY, pos } = this.state;
-    if (isPressed) {
-      const mouseY = pageY-startPageY+CARD_DELTA*pos;
-      this.setState({ mouseY, pageY });
-      console.log('mouseY', mouseY);
-    }
+    this.setState({ pageY });
   };
 
   handleTouchEnd = () => {
-    const { mouseY } = this.state;
     this.setState({ isPressed: false });
-    let pos;
-    if (mouseY <50) {
-      pos = 0;
-    } else {
-      pos = 1;
-    }
-    this.setState({ isPressed: false, pos })
   };
 
   toggleExpand = () => {
@@ -63,23 +50,42 @@ export default class Demo extends React.Component {
 
   render() {
     const {
-      mouseY,
       isPressed,
-      originalPageY,
       pageY,
+      prevPageY,
+      // current,
+      y,
     } = this.state;
-    let y;
-    if(isPressed) {
-      y = mouseY;
-    } else {
-      if(mouseY < 50) {
-        y = spring(0, springConfig);
+    const delta = prevPageY - pageY;
+    // positive delta means scroll up = smaller y
+    console.log('delta', delta);
+    // if (current === 0) {
+      if(isPressed) {
+        if(delta > 0 && y > yMin) {
+          y = y-delta;
+        } else if(delta < 0 && y < yMax) {
+          y = y-delta;
+        }
       } else {
-        y = spring(CARD_DELTA, springConfig);
+        if(delta > 0) {
+          if(y < 75) {
+            y = spring(yMin, springConfig);
+          } else {
+            y = spring(yMax, springConfig);
+          }
+        } else {
+          if(y > 25) {
+            y = spring(yMax, springConfig);
+          } else {
+            y = spring(yMin, springConfig);
+          }
+        }
       }
-    };
+    // }
+    // if (current === 1) {
+    //
+    // }
     const style = { y };
-    console.log('y', y);
 
     return (
       <div className={cardStyle.demoOuter}>
@@ -91,7 +97,6 @@ export default class Demo extends React.Component {
             {({y}) =>
               <div
                 className={cardStyle.demoItem}
-                onTouchStart={this.handleTouchStart.bind(null, y)}
                 style={{
                   transform: `translate3d(0, ${y}px, 0)`
                 }}
