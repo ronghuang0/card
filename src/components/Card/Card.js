@@ -4,8 +4,8 @@ import { Motion, spring } from 'react-motion';
 import cardStyle from './Card.css';
 
 const springConfig = { stiffness: 300, damping: 50 };
-const yMin = 0;
-const yMax = 100;
+const yMin = .05*window.innerHeight;
+const yMax = window.innerHeight-150 - .1*window.innerHeight;
 //y is downward translation
 export default class Card extends React.Component {
   state = {
@@ -43,9 +43,16 @@ export default class Card extends React.Component {
     console.log('delta', delta);
     if(delta > 0 && y > yMin) {
       y = y-delta;
+      if (y < yMin) {
+        y = yMin;
+      }
     } else if(delta < 0 && y < yMax) {
       y = y-delta;
+      if (y > yMax) {
+        y = yMax;
+      }
     }
+    console.log('y', y);
     this.setState({ pageY: pageY, y });
   };
 
@@ -89,30 +96,36 @@ export default class Card extends React.Component {
       // }
 
       // if(isPressed) {
-      const style = { y };
+      const style0 = {};
+      const style1 = { y };
        // }
 
     return (
       <div className={cardStyle.demoOuter}>
         <div className={cardStyle.demo}>
-          <div className={cardStyle.demoItem}>
-            {0}
-          </div>
-          <Motion style={style}>
+          <Motion style={style0}>
             {({y}) =>
-              <div
-                className={cardStyle.demoItem}
-                style={{
-                  transform: `translate3d(0, ${y}px, 0)`
-                }}
-              >
-                {1}
+              <div className={cardStyle.demoItem}>
+                {0}
               </div>
             }
           </Motion>
+          <Motion style={style1}>
+            {({y}) =>
+              <div
+                className={cardStyle.demoItem1}
+                style={{
+                  transform: `translate3d(0, ${y}px, 0)`
+                }}
+                >
+                  {1}
+                </div>
+            }
+          </Motion>
         </div>
-        <div onClick={this.toggleExpand}> expand </div>
       </div>
     );
   };
 }
+{/*
+<div onClick={this.toggleExpand}> expand </div> */}
