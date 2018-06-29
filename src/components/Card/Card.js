@@ -6,13 +6,16 @@ import cardStyle from './Card.css';
 const springConfig = { stiffness: 300, damping: 50 };
 const yMin = .05*window.innerHeight;
 const yMax = window.innerHeight-150 - .1*window.innerHeight;
+const yUpThreshold = window.innerHeight*.75;
+const yDownThreshold = window.innerHeight*.25;
 //y is downward translation
 export default class Card extends React.Component {
   state = {
     isPressed: false,
-    pageY: 0,
-    expanded: false,
+    pageY: yMax,
     y: yMax,
+    current: 0,
+    expanded: false,
   };
 
   componentDidMount() {
@@ -37,10 +40,9 @@ export default class Card extends React.Component {
     const prevPageY = this.state.pageY;
     const delta = prevPageY - pageY;
     let y = this.state.y;
-    console.log('pageY', pageY);
-    console.log('prevPagePageY', prevPageY);
-
-    console.log('delta', delta);
+    // console.log('pageY', pageY);
+    // console.log('prevPagePageY', prevPageY);
+    // console.log('delta', delta);
     if(delta > 0 && y > yMin) {
       y = y-delta;
       if (y < yMin) {
@@ -52,12 +54,26 @@ export default class Card extends React.Component {
         y = yMax;
       }
     }
-    console.log('y', y);
+    // console.log('y', y);
     this.setState({ pageY: pageY, y });
   };
 
   handleTouchEnd = () => {
-    this.setState({ isPressed: false });
+    const { pageY, current } = this.state;
+    let y;
+    let _current;
+    if(pageY < yDownThreshold) {
+      y = yMin;
+    } else if(pageY > yUpThreshold) {
+      y = yMax;
+    } else {
+      if(current === 0) {
+        _current = 1;
+      } else {
+        _current = 0;
+      }
+    }
+    this.setState({ isPressed: false, y, current: _current});
   };
 
   toggleExpand = () => {
@@ -69,6 +85,7 @@ export default class Card extends React.Component {
       isPressed,
       pageY,
       y,
+      current,
     } = this.state;
     // const delta = prevPageY - pageY;
     // positive delta means scroll up = smaller y
@@ -95,20 +112,45 @@ export default class Card extends React.Component {
       //   }
       // }
 
-      // if(isPressed) {
-      const style0 = {};
-      const style1 = { y };
-       // }
-
+    let style0;
+    let style1;
+    if(isPressed) {
+      style0 = { y };
+      style1 = { y };
+    } else {
+      let _y;
+      if(pageY < yDownThreshold) {
+        _y = spring(yMin, springConfig);
+      } else if(pageY > yUpThreshold) {
+        _y = spring(yMax, springConfig);
+      } else {
+        if( current === 0) {
+          _y = spring(yMin, springConfig);
+        } else {
+          _y = spring(yMax, springConfig);
+        }
+      }
+      style0 = { y: _y };
+      style1 = { y: _y };
+    }
     return (
       <div className={cardStyle.demoOuter}>
         <div className={cardStyle.demo}>
           <Motion style={style0}>
-            {({y}) =>
-              <div className={cardStyle.demoItem}>
-                {0}
-              </div>
-            }
+            {({y}) => {
+              const scaleX = (y-yMin)/(yMax-yMin)*.05+.95;
+              console.log('scale', scaleX);
+              return (
+                <div
+                  className={cardStyle.demoItem}
+                  style={{
+                    transform: `scaleX(${scaleX})`
+                  }}
+                  >
+                    {0}
+                  </div>
+              )
+            }}
           </Motion>
           <Motion style={style1}>
             {({y}) =>
