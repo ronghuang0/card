@@ -7,12 +7,12 @@ const springConfig = { stiffness: 300, damping: 50 };
 const yMin = 0;
 const yMax = 100;
 //y is downward translation
-export default class Card extends React.Component {
+export default class Card2 extends React.Component {
   state = {
     isPressed: false,
+    startPageY: 0,
     pageY: 0,
     expanded: false,
-    y: yMax,
   };
 
   componentDidMount() {
@@ -25,6 +25,7 @@ export default class Card extends React.Component {
     const { pageY } = e.touches[0];
     this.setState({
       isPressed: true,
+      prevPageY: pageY,
       pageY,
     });
   };
@@ -34,19 +35,7 @@ export default class Card extends React.Component {
       e.preventDefault();
     }
     const { pageY } = e.touches[0];
-    const prevPageY = this.state.pageY;
-    const delta = prevPageY - pageY;
-    let y = this.state.y;
-    console.log('pageY', pageY);
-    console.log('prevPagePageY', prevPageY);
-
-    console.log('delta', delta);
-    if(delta > 0 && y > yMin) {
-      y = y-delta;
-    } else if(delta < 0 && y < yMax) {
-      y = y-delta;
-    }
-    this.setState({ pageY: pageY, y });
+    this.setState({ pageY });
   };
 
   handleTouchEnd = () => {
@@ -61,36 +50,13 @@ export default class Card extends React.Component {
     const {
       isPressed,
       pageY,
-      y,
+      startPageY,
     } = this.state;
-    // const delta = prevPageY - pageY;
+    const delta = startPageY - pageY;
     // positive delta means scroll up = smaller y
-    // console.log('delta', delta);
-      // if(isPressed) {
-      //   if(delta > 0 && y > yMin) {
-      //     y = y-delta;
-      //   } else if(delta < 0 && y < yMax) {
-      //     y = y-delta;
-      //   }
-      // } else {
-      //   if(delta > 0) {
-      //     if(y < 75) {
-      //       y = spring(yMin, springConfig);
-      //     } else {
-      //       y = spring(yMax, springConfig);
-      //     }
-      //   } else {
-      //     if(y > 25) {
-      //       y = spring(yMax, springConfig);
-      //     } else {
-      //       y = spring(yMin, springConfig);
-      //     }
-      //   }
-      // }
-
-      // if(isPressed) {
-      const style = { y };
-       // }
+    console.log('delta', delta);
+    
+    const style = { y };
 
     return (
       <div className={cardStyle.demoOuter}>
