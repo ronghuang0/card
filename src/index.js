@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Card from './components/Card/Card';
+import ViewPort from './components/ViewPort/ViewPort';
 
 const Root = () => (
-  <Card />
+  <ViewPort />
 );
 
 const el = document.getElementById('root');
