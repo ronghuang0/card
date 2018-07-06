@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import Card from '../Card/Card.js';
-// import { Motion, spring } from 'react-motion';
+import { Motion, spring } from 'react-motion';
 import viewPortStyle from './ViewPort.css';
 
 const springConfig = { stiffness: 300, damping: 50 };
@@ -75,10 +74,6 @@ export default class ViewPort extends React.Component {
     this.setState({ isPressed: false, y: _y, current });
   };
 
-  toggleExpand = () => {
-    this.setState({ expanded: !this.state.expanded })
-  }
-
   render() {
     const {
       isPressed,
@@ -105,16 +100,12 @@ export default class ViewPort extends React.Component {
     return (
       <div className={viewPortStyle.demoOuter}>
         <div className={viewPortStyle.demo}>
-          <Card index={0} current={current} y={y} n={2}>
-          </Card>
-          <Card index={1} current={current} y={y} n={2}>
-          </Card>
-          {/* <Motion style={style0}>
+          <Motion style={style0}>
             {({y}) => {
               const scaleX = (y-yMin)/(yMax-yMin)*.05+.95;
               return (
                 <div
-                  className={viewPortStyle.card}
+                  className={viewPortStyle.card0}
                   style={{
                     transform: `scaleX(${scaleX})`
                   }}
@@ -127,7 +118,7 @@ export default class ViewPort extends React.Component {
           <Motion style={style1}>
             {({y}) =>
               <div
-                className={viewPortStyle.card}
+                className={viewPortStyle.card1}
                 style={{
                   transform: `translate3d(0, ${y}px, 0)`
                 }}
@@ -135,11 +126,9 @@ export default class ViewPort extends React.Component {
                   {1}
                 </div>
             }
-          </Motion> */}
+          </Motion>
         </div>
       </div>
     );
   };
 }
-{/*
-<div onClick={this.toggleExpand}> expand </div> */}
